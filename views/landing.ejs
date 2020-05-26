@@ -1,0 +1,44 @@
+<% include header.ejs %>
+<div class="main-wrapper">
+    <section class="cta-section theme-bg-light py-5">
+        <div class="container text-center">
+            <h2 class="heading">New Reader App</h2>
+            <div class="intro">Search any news article you want to read</div>
+            <form class="signup-form form-inline justify-content-center pt-3" action="">
+                <div class="form-group">
+                    <label class="sr-only" for="semail">Search Query</label>
+                    <input type="text" id="semail" name="search" class="form-control mr-md-1 semail"
+                           placeholder="Search Here">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div><!--//container-->
+    </section>
+
+    <section class="blog-list px-3 py-5 p-md-5">
+        <div class="container">
+            <% result.articles.forEach(function(singleNews){ %>
+                <div class="item mb-5">
+                    <div class="media">
+                        <img class="img-thumbnail float-left mr-3 img-fluid post-thumb d-none d-md-flex"
+                             src="<%= singleNews.urlToImage %>"
+                             alt="image">
+                        <div class="media-body">
+                            <h3 class="title mb-1"><a href="<%= singleNews.url %>"><%= singleNews.title %></a></h3>
+                            <div class="meta mb-1"><span class="date"><%= singleNews.publishedAt %></span><span
+                                        class="time"><%= singleNews.author %></span></div>
+                            <div class="intro"><%= singleNews.content %></div>
+                            <a class="more-link" href="<%= singleNews.url %>">Read more &rarr;</a>
+                        </div><!--//media-body-->
+                        <form method='POST' enctype='text/plain'
+                              class="signup-form form-inline justify-content-center pt-3" action="/save">
+                            <button type="submit" class="btn btn-primary" value='<%= singleNews %>'>Save this</button>
+                        </form>
+                    </div><!--//media-->
+                </div><!--//item-->
+            <% }); %>
+        </div>
+    </section>
+</div><!--//main-wrapper-->
+
+<% include footer.ejs %>
